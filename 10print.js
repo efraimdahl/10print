@@ -3,18 +3,26 @@
 */
 
 const w = process.stdout.columns
+const chars = ['⧸','⧹']
+let a = 0
+let b = 0
+let g = 10
+function drawchar(){
+  if(b<g){
+    a = a;
+  } else {
+    b = 0;
+    a = Math.floor(Math.random()*2)
+    g = Math.floor(Math.random()*4);
+  }
+  process.stdout.write(`\x1b[${a+30}m` + chars[Math.floor(Math.random()*chars.length)]);
+  b++
+}
 
 function draw () {
-  setTimeout(draw, 1000)
-  let output = ''
-  for (let i = 0; i < w; i++) {
-    if (Math.random() > 0.5) {
-      output += '\\'
-    } else {
-      output += '/'
-    }
-  }
-  console.log(output)
+  setInterval(drawchar,5);
+  process.stdout.write('\n') 
 }
+
 
 draw()
